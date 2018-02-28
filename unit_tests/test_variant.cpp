@@ -25,7 +25,7 @@ TEST(VariantTest, VariantCreateExplicitType)
     const auto var3 = Variant(val_int);
     EXPECT_EQ(-3, var3.get<int>());
 
-    // lvalues
+    // more lvalues
     const auto expected = std::vector<char>{ 2, 6, -9 };
     const auto var4 = Variant(expected);
     EXPECT_EQ(expected, var4.get<std::vector<char>>());
@@ -48,19 +48,18 @@ TEST(VariantTest, VariantGetUnconvertibleType)
     const auto value = Variant(4.5);
     EXPECT_THROW(value.get<int>(), std::bad_typeid);
 
-    // TODO: consider this case
-//     EXPECT_EQ(4, value.get_as<int>());
+    // TODO: consider the commented case
+    // EXPECT_EQ(4, value.get_as<int>());
 }
 
 TEST(VariantTest, VariantTypeConversionExplicit)
 {
     Variant var1 = -15;
 
-    // TODO: same as in previous test
-//    EXPECT_EQ(var1.get_as<long long>(), -15ll);
-//    EXPECT_EQ(var1.get_as<bool>(), true);
-//    EXPECT_EQ(var1.get_as<double>(), -15.0);
-//    EXPECT_EQ(var1.get_as<uint32_t>(), uint32_t(-15));
-//    EXPECT_EQ(var1.get_as<std::string>(), "-15");
-
+    // TODO: implement
+    // EXPECT_EQ(var1.get_as<long long>(), -15ll);
+    // EXPECT_EQ(var1.get_as<bool>(), true);
+    // EXPECT_EQ(var1.get_as<double>(), -15.0);
+    // EXPECT_EQ(var1.get_as<uint32_t>(), uint32_t(-15));
+    // EXPECT_EQ(var1.get_as<std::string>(), "-15");
 }

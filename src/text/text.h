@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <string>
+#include <algorithm>
 #include "textutils.h"
 
 namespace dp
@@ -20,6 +21,8 @@ namespace dp
 		{
 		public:
 			Text() = default;
+			Text(Text&& text) = default;
+			Text(const Text& text) = default;
 
 			template <size_t s>
 			Text(const char (&text)[s]): text_{text} {}
@@ -28,6 +31,7 @@ namespace dp
 			Text(std::string&& text) : text_{std::move(text)}{}
 
 			Text& operator=(const Text& text) = default;
+			Text& operator=(Text&& text) = default;
 			Text& operator+=(const Text& rhs) { text_ += rhs.text_; return *this; }
 
 			std::string as_string() const { return text_; }
@@ -36,8 +40,6 @@ namespace dp
 			// TODO: create from a type, tag dispatch for integral and floating
 			template <typename T>
 			static Text from(T&& value) { return {}; }
-
-//			template <typename T = std::enable_if_t<std::is_integral<T>
 
 			// convert to a type, tag dispatch for integral and floating
 			template <typename T>
@@ -48,7 +50,6 @@ namespace dp
 			Text& format(T&& value) { return {}; }
 
 			// Member functions delegated to textutils function calls.
-			// Return a reference to allow cascade method calling
 			Text remove_whitespaces() { return textutils::remove_whitespaces(text_); }
 			Text reverse() { auto text = text_; std::reverse(text.begin(), text.end()); return text; }
 			auto split(std::string delimeter = "") { return textutils::split(text_, delimeter); }
@@ -57,19 +58,12 @@ namespace dp
 			std::string text_;
 		};
 
-        Text operator+(Text& lhs, const Text& rhs)
+        inline Text operator+(Text& lhs, const Text& rhs)
         {
             lhs += rhs;
             return lhs;
         }
 	}
-
-    namespace detail_
-    {
-        struct integral_tag{};
-        struct floating_tag{};
-        struct string_tag{};
-    }
 }
 
 #endif /* TEXT_H_ */

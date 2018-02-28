@@ -12,8 +12,6 @@
 #include <memory>
 #include <type_traits>
 
-#include <iostream>
-
 namespace dp
 {
     namespace core
@@ -50,11 +48,11 @@ namespace dp
         public:
             Variant(Variant &&rhs)
             {
-                std::cout << "x: move ctor\n";
+                // TODO: implement
             }
             Variant(const Variant &rhs)
             {
-                std::cout << "x: cpy ctor\n";
+                // TODO: implement
             }
 
             template <typename T, typename = std::enable_if_t<!std::is_same<typename std::decay<T>::type, Variant>::value>>
