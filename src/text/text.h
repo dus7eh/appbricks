@@ -15,55 +15,85 @@
 
 namespace dp
 {
-	namespace text
-	{
-		class Text
-		{
-		public:
-			Text() = default;
-			Text(Text&& text) = default;
-			Text(const Text& text) = default;
+    namespace text
+    {
+        class Text
+        {
+        public:
+            Text() = default;
+            Text(Text&& text) = default;
+            Text(const Text& text) = default;
 
-			template <size_t s>
-			Text(const char (&text)[s]): text_{text} {}
+            template <size_t s>
+            Text(const char (&text)[s]): text_{text} {}
             Text(const char* text) : text_{text} {}
-            Text(const std::string& text) : text_{text}{}
-			Text(std::string&& text) : text_{std::move(text)}{}
+            Text(const std::string& text) : text_{text} {}
+            Text(std::string&& text) : text_{std::move(text)} {}
 
-			Text& operator=(const Text& text) = default;
-			Text& operator=(Text&& text) = default;
-			Text& operator+=(const Text& rhs) { text_ += rhs.text_; return *this; }
+            Text& operator=(const Text& text) = default;
+            Text& operator=(Text&& text) = default;
+            Text& operator+=(const Text& rhs)
+            {
+                text_ += rhs.text_;
+                return *this;
+            }
 
-			std::string as_string() const { return text_; }
-			std::string& as_string() { return text_; }
+            std::string as_string() const
+            {
+                return text_;
+            }
+            std::string& as_string()
+            {
+                return text_;
+            }
 
-			// TODO: create from a type, tag dispatch for integral and floating
-			template <typename T>
-			static Text from(T&& value) { return {}; }
+            // TODO: create from a type, tag dispatch for integral and floating
+            template <typename T>
+            static Text from(T&& value)
+            {
+                return {};
+            }
 
-			// convert to a type, tag dispatch for integral and floating
-			template <typename T>
-			std::string as() const { return {}; }
+            // convert to a type, tag dispatch for integral and floating
+            template <typename T>
+            std::string as() const
+            {
+                return {};
+            }
 
             // format a string filled with tokens
-			template <typename T>
-			Text& format(T&& value) { return {}; }
+            template <typename T>
+            Text& format(T&& value)
+            {
+                return {};
+            }
 
-			// Member functions delegated to textutils function calls.
-			Text remove_whitespaces() { return textutils::remove_whitespaces(text_); }
-			Text reverse() { auto text = text_; std::reverse(text.begin(), text.end()); return text; }
-			auto split(std::string delimeter = "") { return textutils::split(text_, delimeter); }
+            // Member functions delegated to textutils function calls.
+            Text remove_whitespaces()
+            {
+                return textutils::remove_whitespaces(text_);
+            }
+            Text reverse()
+            {
+                auto text = text_;
+                std::reverse(text.begin(), text.end());
+                return text;
+            }
+            auto split(std::string delimeter = "")
+            {
+                return textutils::split(text_, delimeter);
+            }
 
-		private:
-			std::string text_;
-		};
+        private:
+            std::string text_;
+        };
 
         inline Text operator+(Text& lhs, const Text& rhs)
         {
             lhs += rhs;
             return lhs;
         }
-	}
+    }
 }
 
 #endif /* TEXT_H_ */
