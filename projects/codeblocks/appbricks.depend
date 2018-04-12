@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1517490925 source:c:\damian\github\appbricks\src\text\textutils.cpp
+	"textutils.h"
+	<algorithm>
+
+1517436182 c:\damian\github\appbricks\src\text\textutils.h
+	<string>
+	<vector>
+
+1517524062 source:c:\damian\github\appbricks\src\main.cpp
+	"core/variant.h"
+	"text/textutils.h"
+	"text/text.h"
+	<iostream>
+	<string>
+
+1517352780 c:\damian\github\appbricks\src\core\variant.h
+	<string>
+	<typeinfo>
+	<memory>
+	<type_traits>
+	<iostream>
+
+1517523410 c:\damian\github\appbricks\src\text\text.h
+	<type_traits>
+	<string>
+
