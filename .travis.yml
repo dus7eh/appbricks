@@ -24,4 +24,4 @@ install:
 
 # Build steps
 script:
-  - cmake && make
+  - cmake . && make
