@@ -1,0 +1,24 @@
+sudo: required
+
+# Prerequisites
+before_install:
+  
+# Enable C++ support
+language: cpp
+
+# Compiler selection
+compiler:
+  - gcc
+  
+addons:
+  apt:
+    packages:
+      - gcc-6
+      - g++-6
+      - cmake
+  
+install:
+
+# Build steps
+script:
+  - cmake && make
