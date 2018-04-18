@@ -4,7 +4,9 @@ add_library(appbricks
     src/main.cpp  
 )
 
-#add_subdirectory(ext/googletest-release-1.8.0)
 add_subdirectory(src/text)
-
-target_include_directories(appbricks PRIVATE include)
+target_link_libraries(textbrick)
+target_include_directories(appbricks PRIVATE src)
+install(TARGETS appbricks
+        DESTINATION bin
+)
