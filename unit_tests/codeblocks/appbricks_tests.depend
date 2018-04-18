@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1519339598 source:c:\damian\github\appbricks\unit_tests\main.cpp
+	<gtest/gtest.h>
+
+1519339584 source:c:\damian\github\appbricks\unit_tests\test_text.cpp
+	<gtest\gtest.h>
+	<text\text.h>
+
+1519855017 source:c:\damian\github\appbricks\unit_tests\test_variant.cpp
+	<gtest\gtest.h>
+	<vector>
+	<core\variant.h>
+
+1519854920 source:c:\damian\github\appbricks\src\text\textutils.cpp
+	"textutils.h"
+	<algorithm>
+
+1519339574 c:\damian\github\appbricks\src\text\textutils.h
+	<string>
+	<vector>
+
