@@ -26,4 +26,4 @@ script:
   - cmake --build .
 
 install:
-  - cmake --target install
+  - cmake --build . --target install
