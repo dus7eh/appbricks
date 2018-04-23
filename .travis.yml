@@ -20,9 +20,10 @@ addons:
       - g++-6
       - cmake
   
-install:
-
 # Build steps
 script:
   - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake .
   - cmake --build .
+
+install:
+  - cmake --target install
