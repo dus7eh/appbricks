@@ -11,7 +11,7 @@ target_include_directories(corebrick INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 #    "variant.h"
 #)
 
-include(${CMAKE_CURRENT_LIST_DIR}/../SubmoduleInstallHelpers.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/../SubmoduleInstallHelpers.cmake)
 install(TARGETS  corebrick
         RUNTIME  DESTINATION ${INSTALL_SUBMODULES_RUN}
         ARCHIVE  DESTINATION ${INSTALL_SUBMODULES_ARC}

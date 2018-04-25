@@ -12,7 +12,7 @@ set_target_properties(textbrick PROPERTIES PUBLIC_HEADER
     "text.h;textutils.h"
 )
 
-include(${CMAKE_CURRENT_LIST_DIR}/../SubmoduleInstallHelpers.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/../SubmoduleInstallHelpers.cmake)
 
 install(TARGETS  textbrick
         RUNTIME  DESTINATION ${INSTALL_SUBMODULES_RUN}
