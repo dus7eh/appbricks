@@ -5,6 +5,8 @@ project(appbricks VERSION 0.1 LANGUAGES CXX)
 add_library(appbricks
     src/main.cpp
 )
+# set installation related variables
+include(${CMAKE_CURRENT_LIST_DIR}/src/SubmoduleInstallHelpers.cmake)
 
 # submodules settings
 add_subdirectory(src/text)
@@ -17,7 +19,6 @@ target_link_libraries(corebrick)
 set(INSTALL_SUBMODULES_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE PATH "Installation base directory")
 set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/appbricks)
 
-include(${CMAKE_CURRENT_LIST_DIR}/src/SubmoduleInstallHelpers.cmake)
 install(TARGETS  appbricks
         EXPORT   appbricks_targets
         RUNTIME  DESTINATION ${INSTALL_SUBMODULES_RUN}
