@@ -6,6 +6,7 @@ add_library(appbricks
     src/main.cpp
 )
 # set installation related variables
+set(INSTALL_SUBMODULES_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE PATH "Installation base directory")
 include(${CMAKE_CURRENT_LIST_DIR}/src/SubmoduleInstallHelpers.cmake)
 
 # submodules settings
@@ -16,7 +17,6 @@ target_link_libraries(textbrick)
 target_link_libraries(corebrick)
 
 # installation
-set(INSTALL_SUBMODULES_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE PATH "Installation base directory")
 set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/appbricks)
 
 install(TARGETS  appbricks
