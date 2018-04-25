@@ -24,6 +24,7 @@ addons:
 script:
   - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake .
   - cmake --build .
+  #- cmake --build . --target install
 
 install:
-  - cmake --build . --target install
+  
