@@ -34,9 +34,9 @@ install(TARGETS  appbricks
 #)
 
 # create a appbricks_version.cmake file
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/appbricks_version.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY AnyNewerVersion
-)
+#include(CMakePackageConfigHelpers)
+#write_basic_package_version_file(
+#    ${CMAKE_CURRENT_BINARY_DIR}/appbricks_version.cmake
+#    VERSION ${PROJECT_VERSION}
+#    COMPATIBILITY AnyNewerVersion
+#)
