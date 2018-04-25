@@ -27,11 +27,11 @@ install(TARGETS  appbricks
 )
 
 # export project
-install(EXPORT appbricks_targets
-        FILE appbricksTargets.cmake
-        NAMESPACE apb::
-        DESTINATION ${INSTALL_CONFIGDIR}
-)
+#install(EXPORT appbricks_targets
+#        FILE appbricksTargets.cmake
+#        NAMESPACE apb::
+#        DESTINATION ${INSTALL_CONFIGDIR}
+#)
 
 # create a appbricks_version.cmake file
 include(CMakePackageConfigHelpers)
