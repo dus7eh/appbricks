@@ -7,7 +7,7 @@ add_library(appbricks
 )
 # set installation related variables
 set(INSTALL_SUBMODULES_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE PATH "Installation base directory")
-include(${CMAKE_CURRENT_LIST_DIR}/src/SubmoduleInstallHelpers.cmake)
+include(InstallDirHelpers.cmake)
 
 # submodules settings
 add_subdirectory(src/text)
@@ -35,9 +35,9 @@ install(TARGETS  appbricks
 #)
 
 # create a appbricks_version.cmake file
-#include(CMakePackageConfigHelpers)
-#write_basic_package_version_file(
-#    ${CMAKE_CURRENT_BINARY_DIR}/appbricks_version.cmake
-#    VERSION ${PROJECT_VERSION}
-#    COMPATIBILITY AnyNewerVersion
-#)
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/appbricks_version.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)

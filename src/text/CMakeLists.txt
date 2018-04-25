@@ -1,18 +1,15 @@
 cmake_minimum_required(VERSION 3.0)
 
 # project configuration
-project(textbrick)
+project(textbrick VERSION 0.1 LANGUAGES CXX)
 add_library(textbrick
     text.cpp
     textutils.cpp
 )
 
-#target_include_directories(textbrick PRIVATE ../include)
 set_target_properties(textbrick PROPERTIES PUBLIC_HEADER
     "text.h;textutils.h"
 )
-
-#include(${CMAKE_CURRENT_LIST_DIR}/../SubmoduleInstallHelpers.cmake)
 
 install(TARGETS  textbrick
         RUNTIME  DESTINATION ${INSTALL_SUBMODULES_RUN}

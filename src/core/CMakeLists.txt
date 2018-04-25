@@ -7,11 +7,6 @@ add_library(corebrick INTERFACE)
 target_compile_definitions(corebrick INTERFACE  LIBRARY_HEADER_ONLY)
 target_include_directories(corebrick INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
-#set_target_properties(corebrick PROPERTIES PUBLIC_HEADER
-#    "variant.h"
-#)
-
-#include(${CMAKE_CURRENT_LIST_DIR}/../SubmoduleInstallHelpers.cmake)
 install(TARGETS  corebrick
         RUNTIME  DESTINATION ${INSTALL_SUBMODULES_RUN}
         ARCHIVE  DESTINATION ${INSTALL_SUBMODULES_ARC}
@@ -21,7 +16,3 @@ install(TARGETS  corebrick
 )
 
 install(FILES "variant.h" DESTINATION ${INSTALL_SUBMODULES_INC})
-
-#install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DESTINATION ${INSTALL_SUBMODULES_INC}
-#        FILES_MATCHING PATTERN "*.h"
-#)
