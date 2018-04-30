@@ -17,4 +17,5 @@ target_link_libraries(tests gtest_main
     
 add_custom_command(COMMAND $CMAKE_CURRENT_BINARY_DIR}/tests.exe
     POST_BUILD
-    TARGET tests)
+    TARGET tests
+    COMMENT "Running tests")
