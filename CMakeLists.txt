@@ -16,6 +16,14 @@ add_subdirectory(src/core)
 target_link_libraries(textbrick)
 target_link_libraries(corebrick)
 
+# create a appbricks_version.cmake file
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/appbricks_version.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
+
 # installation
 set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/appbricks)
 
@@ -34,10 +42,5 @@ install(TARGETS  appbricks
 #        DESTINATION ${INSTALL_CONFIGDIR}
 #)
 
-# create a appbricks_version.cmake file
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/appbricks_version.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY AnyNewerVersion
-)
+# section for gtest and unit_test build
+add_subdirectory(unit_tests)

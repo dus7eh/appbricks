@@ -5,10 +5,10 @@
  *      Author: Dusteh
  */
 
-#include <gtest\gtest.h>
+#include <gtest/gtest.h>
 
 #include <vector>
-#include <core\variant.h>
+#include <core/variant.h>
 
 using dp::core::Variant;
 

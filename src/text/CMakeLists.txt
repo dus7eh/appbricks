@@ -7,6 +7,8 @@ add_library(textbrick
     textutils.cpp
 )
 
+target_include_directories(textbrick INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(textbrick PROPERTIES PUBLIC_HEADER
     "text.h;textutils.h"
 )
