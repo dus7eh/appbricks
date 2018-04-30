@@ -24,7 +24,6 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(${EXT_RESOURCES_GTEST}/googletest-src
                  ${EXT_RESOURCES_GTEST}/googletest-build
                  EXCLUDE_FROM_ALL)
-message(STATUS "im here 3: " ${gtest_SOURCE_DIR})
 # The gtest/gtest_main targets carry header search path
 # dependencies automatically when using CMake 2.8.11 or
 # later. Otherwise we have to add them here ourselves.
