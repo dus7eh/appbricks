@@ -44,6 +44,7 @@ install(TARGETS  appbricks
 
 # section for gtest and unit_test build
 add_subdirectory(unit_tests)
-add_custom_target(tests_run unit_tests/tests.exe
+add_custom_target(tests_run ALL
+    COMMAND unit_tests/tests.exe
     COMMENT "Running tests"
     DEPENDS tests)
