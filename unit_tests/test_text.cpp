@@ -5,8 +5,8 @@
  *      Author: Dusteh
  */
 
-#include <gtest\gtest.h>
-#include <text\text.h>
+#include <gtest/gtest.h>
+#include <text/text.h>
 
 using dp::text::Text;
 
