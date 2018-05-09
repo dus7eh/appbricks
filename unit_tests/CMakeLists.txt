@@ -13,4 +13,4 @@ add_executable(tests
 # fixme: consider include dir instead src - this would require post installation stage
 target_include_directories(tests PRIVATE ${CMAKE_BINARY_DIR}/src)
 target_link_libraries(tests gtest_main
-    textbrick corebrick)
+    appbricks)

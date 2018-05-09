@@ -13,7 +13,7 @@
 #include <algorithm>
 #include "textutils.h"
 
-namespace dp
+namespace bricks
 {
     namespace text
     {
@@ -71,7 +71,7 @@ namespace dp
             // Member functions delegated to textutils function calls.
             Text remove_whitespaces()
             {
-                return textutils::remove_whitespaces(text_);
+                return text::remove_whitespaces(text_);
             }
             Text reverse()
             {
@@ -81,7 +81,7 @@ namespace dp
             }
             auto split(std::string delimeter = "")
             {
-                return textutils::split(text_, delimeter);
+                return text::split(text_, delimeter);
             }
 
         private:
