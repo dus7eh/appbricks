@@ -34,3 +34,8 @@
 # VS files
 *.vcprojx
 *.db
+
+# external or install dirs
+ext
+/include
+/lib
