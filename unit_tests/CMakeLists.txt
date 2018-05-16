@@ -9,8 +9,8 @@ add_executable(tests
     src/test_variant.cpp
 )
 
-message(STATUS "path: " ${CMAKE_BINARY_DIR}/include)
-target_include_directories(tests PRIVATE ${CMAKE_BINARY_DIR}/include)
+message(STATUS "my path: " ${CMAKE_BINARY_DIR}/include)
+target_include_directories(tests PUBLIC ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(tests gtest_main textbrick corebrick)
 
 # install
