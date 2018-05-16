@@ -10,8 +10,7 @@ add_executable(tests
 )
 
 target_include_directories(tests PRIVATE ${CMAKE_BINARY_DIR}/include)
-target_link_libraries(tests gtest_main)
-target_link_libraries(tests textbrick corebrick)
+target_link_libraries(tests gtest_main textbrick corebrick)
 
 # install
 include(../scripts/InstallDirHelpers.cmake)
