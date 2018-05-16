@@ -26,5 +26,5 @@ install:
 script:
   - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake . -DCMAKE_INSTALL_PREFIX=$TRAVIS_BUILD_DIR/appbricks
   - cmake --build . --target install
-  - cmake --build . --target unit_tests 
+  - cmake --build . --target tests 
   - ctest 
