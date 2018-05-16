@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 # project configuration
 project(tests VERSION 0.1 LANGUAGES CXX)
 
-include(DownloadGoogleTest.cmake)
+include(../scripts/DownloadGoogleTest.cmake)
 
 add_executable(tests
     src/test_text.cpp
