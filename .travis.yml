@@ -26,4 +26,5 @@ install:
 script:
   - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake .
   - cmake --build . --target install
-  - ctest
+  - cmake --build . --target unit_tests 
+  - ctest 

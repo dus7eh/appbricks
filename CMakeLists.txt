@@ -5,8 +5,7 @@ project(appbricks VERSION 0.1 LANGUAGES CXX)
 add_library(appbricks INTERFACE)
 
 # set installation related variables
-set(INSTALL_SUBMODULES_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE PATH "Installation base directory")
-include(InstallDirHelpers.cmake)
+include(scripts/InstallDirHelpers.cmake)
 
 # submodules settings
 add_subdirectory(code/text)
@@ -41,9 +40,9 @@ install(TARGETS  appbricks
 #        DESTINATION ${INSTALL_CONFIGDIR}
 #)
 
-# section for gtest and unit_test build
-#add_dependencies(appbricks tests)
-add_subdirectory(unit_tests)
+add_subdirectory(unit_tests EXCLUDE_FROM_ALL)
+
+# run tests
 enable_testing()
 add_test(NAME tests_run
     COMMAND tests
