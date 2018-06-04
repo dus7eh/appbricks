@@ -10,7 +10,7 @@
 #include <vector>
 #include <core/variant.h>
 
-using dp::core::Variant;
+using bricks::core::Variant;
 
 TEST(VariantTest, VariantCreateExplicitType)
 {

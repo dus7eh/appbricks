@@ -24,6 +24,7 @@ install:
 
 # Build steps
 script:
-  - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake .
+  - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake . -DCMAKE_INSTALL_PREFIX=$TRAVIS_BUILD_DIR
   - cmake --build . --target install
-  - ctest
+  - cmake --build . --target tests 
+  - ctest 

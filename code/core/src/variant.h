@@ -12,7 +12,7 @@
 #include <memory>
 #include <type_traits>
 
-namespace dp
+namespace bricks
 {
     namespace core
     {

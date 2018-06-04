@@ -2,16 +2,14 @@ cmake_minimum_required(VERSION 3.0)
 
 # project configuration
 project(appbricks VERSION 0.1 LANGUAGES CXX)
-add_library(appbricks
-    src/main.cpp
-)
+add_library(appbricks INTERFACE)
+
 # set installation related variables
-set(INSTALL_SUBMODULES_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE PATH "Installation base directory")
-include(InstallDirHelpers.cmake)
+include(scripts/InstallDirHelpers.cmake)
 
 # submodules settings
-add_subdirectory(src/text)
-add_subdirectory(src/core)
+add_subdirectory(code/text)
+add_subdirectory(code/core)
 
 target_link_libraries(textbrick)
 target_link_libraries(corebrick)
@@ -42,9 +40,9 @@ install(TARGETS  appbricks
 #        DESTINATION ${INSTALL_CONFIGDIR}
 #)
 
-# section for gtest and unit_test build
-add_subdirectory(unit_tests)
+add_subdirectory(unit_tests EXCLUDE_FROM_ALL)
 
+# run tests
 enable_testing()
 add_test(NAME tests_run
     COMMAND tests

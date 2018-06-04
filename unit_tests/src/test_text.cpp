@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <text/text.h>
 
-using dp::text::Text;
+using bricks::text::Text;
 
 TEST(TextTest, TextCreateAndReadObject)
 {
