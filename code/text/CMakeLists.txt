@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.0)
 # project configuration
 project(textbrick VERSION 0.1 LANGUAGES CXX)
 add_library(textbrick
-    src/text.cpp
     src/textutils.cpp
 )
 

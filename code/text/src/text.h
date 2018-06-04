@@ -5,8 +5,8 @@
  *      Author: Dusteh
  */
 
-#ifndef TEXT_H_
-#define TEXT_H_
+#ifndef TEXT_H
+#define TEXT_H
 
 #include <type_traits>
 #include <string>
@@ -96,4 +96,4 @@ namespace bricks
     }
 }
 
-#endif /* TEXT_H_ */
+#endif /* TEXT_H */
