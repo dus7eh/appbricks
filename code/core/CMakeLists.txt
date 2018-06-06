@@ -5,7 +5,7 @@ project(corebrick VERSION 0.1 LANGUAGES CXX)
 add_library(corebrick INTERFACE)
 
 target_compile_definitions(corebrick INTERFACE  LIBRARY_HEADER_ONLY)
-target_include_directories(corebrick INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(corebrick INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS  corebrick
         RUNTIME  DESTINATION ${INSTALL_SUBMODULES_RUN}
@@ -15,5 +15,6 @@ install(TARGETS  corebrick
         PUBLIC_HEADER DESTINATION ${INSTALL_SUBMODULES_INC}/core
 )
 
-install(DIRECTORY src/ DESTINATION ${INSTALL_SUBMODULES_INC}/core
-    FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY ./ DESTINATION ${INSTALL_SUBMODULES_INC}/core
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN "CMakeFiles" EXCLUDE)
