@@ -2,7 +2,7 @@
  * test_optional.cpp
  *
  *  Created on: Jun 05, 2018
- *      Author: Dusteh
+ *      Author: Damian Ellwart
  */
 
 #include <gtest/gtest.h>
@@ -10,12 +10,82 @@
 
 using bricks::core::Optional;
 
-TEST(OptionalTest, OptionalPositive)
+TEST(OptionalTest, OptionalReadData)
 {
-    EXPECT_EQ(true, true);
+    Optional<double> value = 3.4;
+    EXPECT_EQ(*value, 3.4);
+    EXPECT_EQ(value.get(), 3.4);
 }
 
-TEST(OptionalTest, OptionalNegative)
+TEST(OptionalTest, OptionalReadOrDefault)
 {
-    EXPECT_EQ(true, true);
+    Optional<int> empty;
+    EXPECT_EQ(empty.get_or_default(3), 3);
+
+    Optional<int> filled = Optional<int>(9);
+    EXPECT_EQ(filled.get_or_default(2), 9);
+}
+
+// TEST(OptionalTest, OptionalMoveCtor)
+// TEST(OptionalTest, OptionalMoveAssign)
+// TEST(OptionalTest, OptionalMake)
+
+TEST(OptionalTest, OptionalCopyCtor)
+{
+    Optional<double> value = 3.4;
+    auto copy = value;
+    EXPECT_EQ(*value, 3.4);
+    EXPECT_EQ(*copy, 3.4);
+    EXPECT_EQ(*value, *copy);
+}
+
+TEST(OptionalTest, OptionalCopyAssign)
+{
+    Optional<double> value = 3.4;
+    Optional<double> assign;
+    assign = value;
+    EXPECT_EQ(*value, 3.4);
+    EXPECT_EQ(*assign, 3.4);
+    EXPECT_EQ(*value, *assign);
+}
+
+TEST(OptionalTest, OptionalSwap)
+{
+    Optional<double> value1 = 1.2;
+    Optional<double> value2 = 3.4;
+    swap(value1, value2);
+    EXPECT_EQ(*value1, 3.4);
+    EXPECT_EQ(*value2, 1.2);
+
+    bricks::swap(value1, value2);
+    EXPECT_EQ(*value1, 1.2);
+    EXPECT_EQ(*value2, 3.4);
+}
+
+TEST(OptionalTest, OptionalBoolOperator)
+{
+    Optional<int> empty;
+    EXPECT_EQ(bool(empty), false);
+    EXPECT_EQ(empty.empty(), true);
+
+    Optional<int> filled = 5;
+    EXPECT_EQ(bool(filled), true);
+
+    Optional<int> empty_ptr;
+    EXPECT_EQ(bool(empty_ptr), false);
+
+    Optional<char*> filled_ptr = nullptr;
+    EXPECT_EQ(bool(filled_ptr), true);
+}
+
+TEST(OptionalTest, OptionalPtrAccess)
+{
+    struct Dummy {
+        std::string name = "abc";
+        int value = 29;
+    };
+
+    const auto dummy = Optional<Dummy>(Dummy());
+    EXPECT_EQ(dummy->name, "abc");
+    EXPECT_EQ(dummy->value, 29);
 }

@@ -7,6 +7,7 @@ include(../scripts/DownloadGoogleTest.cmake)
 add_executable(tests
     src/test_text.cpp
     src/test_variant.cpp
+    src/test_stringview.cpp
     src/test_optional.cpp
 )
 

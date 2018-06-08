@@ -2,7 +2,7 @@
  * test_variant.cpp
  *
  *  Created on: Jan 31, 2018
- *      Author: Dusteh
+ *      Author: Damian Ellwart
  */
 
 #include <gtest/gtest.h>

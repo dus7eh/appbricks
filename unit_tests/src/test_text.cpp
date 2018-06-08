@@ -2,7 +2,7 @@
  * test_text.cpp
  *
  *  Created on: Feb 1, 2018
- *      Author: Dusteh
+ *      Author: Damian Ellwart
  */
 
 #include <gtest/gtest.h>
