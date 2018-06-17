@@ -2,7 +2,7 @@
  * variant.h
  *
  *  Created on: May 31, 2018
- *      Author: Dusteh
+ *      Author: Damian Ellwart
  */
 
 #pragma once

@@ -7,9 +7,19 @@ include(../scripts/DownloadGoogleTest.cmake)
 add_executable(tests
     src/test_text.cpp
     src/test_variant.cpp
+    src/test_stringview.cpp
+    src/test_optional.cpp
 )
 
-target_include_directories(tests PRIVATE ${CMAKE_BINARY_DIR}/include)
+option(DEV_MODE "Compile and link against the code sources instead of install path" OFF)
+
+if (DEV_MODE)
+    target_include_directories(tests PRIVATE
+                        ${CMAKE_BINARY_DIR}/code)
+else()
+    target_include_directories(tests PRIVATE ${CMAKE_BINARY_DIR}/include)
+endif()
+
 target_link_libraries(tests gtest_main textbrick corebrick)
 
 # install
