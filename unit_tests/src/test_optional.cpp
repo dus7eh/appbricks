@@ -17,6 +17,18 @@ TEST(OptionalTest, OptionalReadData)
     EXPECT_EQ(value.get(), 3.4);
 }
 
+TEST(OptionalTest, OptionalReadAndThrow)
+{
+    struct Dummy {
+        int age = 3;
+    };
+
+    Optional<Dummy> empty{};
+    EXPECT_THROW(*empty, bricks::core::BadAccess);
+    //EXPECT_THROW(empty->age, bricks::core::BadAccess);
+}
+
+
 TEST(OptionalTest, OptionalReadOrDefault)
 {
     Optional<int> empty;
@@ -25,10 +37,6 @@ TEST(OptionalTest, OptionalReadOrDefault)
     Optional<int> filled = Optional<int>(9);
     EXPECT_EQ(filled.get_or_default(2), 9);
 }
-
-// TEST(OptionalTest, OptionalMoveCtor)
-// TEST(OptionalTest, OptionalMoveAssign)
-// TEST(OptionalTest, OptionalMake)
 
 TEST(OptionalTest, OptionalCopyCtor)
 {
@@ -39,6 +47,15 @@ TEST(OptionalTest, OptionalCopyCtor)
     EXPECT_EQ(*value, *copy);
 }
 
+TEST(OptionalTest, OptionalMoveCtor)
+{
+    Optional<double> value = 5.9;
+    Optional<double> copy = std::move(value);
+
+    EXPECT_EQ(value.empty(), true);
+    EXPECT_EQ(*copy, 5.9);
+}
+
 TEST(OptionalTest, OptionalCopyAssign)
 {
     Optional<double> value = 3.4;
@@ -47,6 +64,23 @@ TEST(OptionalTest, OptionalCopyAssign)
     EXPECT_EQ(*value, 3.4);
     EXPECT_EQ(*assign, 3.4);
     EXPECT_EQ(*value, *assign);
+}
+
+TEST(OptionalTest, OptionalMoveAssign)
+{
+    Optional<double> value = 3.4;
+    Optional<double> assign;
+    assign = std::move(value);
+    EXPECT_EQ(value.empty(), true);
+    EXPECT_EQ(*assign, 3.4);
+}
+
+TEST(OptionalTest, OptionalMake)
+{
+    using bricks::core::make_optional;
+
+    const auto value = make_optional<int>(15);
+    EXPECT_EQ(*value, 15);
 }
 
 TEST(OptionalTest, OptionalSwap)

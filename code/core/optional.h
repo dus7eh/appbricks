@@ -7,21 +7,29 @@
 
 #pragma once
 #include <memory>
+#include <exception>
 
 namespace bricks
 {
     namespace core
     {
+        class BadAccess : public std::exception
+        {
+            virtual const char* what() const noexcept override {
+                return "Incorrect object/value access";
+            }
+        };
+
         template <typename T>
         class Optional
         {
         public:
             Optional() noexcept = default;
             Optional(T&& arg) : data_{ std::make_unique<T>(std::forward<T>(arg)) } { }
+            Optional(Optional<T>&& rhs) noexcept : data_{ std::move(rhs.data_) } { }
             Optional(const Optional<T>& rhs) {
-                if (this != &rhs && rhs) {
+                if (rhs)
                     data_ = std::make_unique<T>(*rhs);
-                }
             }
 
             ~Optional() = default;
@@ -30,7 +38,11 @@ namespace bricks
                 std::swap(lhs.data_, rhs.data_);
             }
 
-            const T& get() const { return *data_; }
+            const T& get() const {
+                if (empty())
+                    throw BadAccess();
+                return *data_;
+            }
             T& get() { return const_cast<T&>(static_cast<const Optional<T>&>(*this).get()); }
 
             T get_or_default(T&& dflt) {
