@@ -25,7 +25,7 @@ TEST(OptionalTest, OptionalReadAndThrow)
 
     Optional<Dummy> empty{};
     EXPECT_THROW(*empty, bricks::core::BadAccess);
-    //EXPECT_THROW(empty->age, bricks::core::BadAccess);
+    EXPECT_NO_THROW(empty->age);
 }
 
 
