@@ -40,6 +40,7 @@ TEST(StringViewTest, OperatorArray) {
     EXPECT_EQ(sv_mid[2], 'c');
     EXPECT_THROW(sv_mid[3], std::out_of_range);
     EXPECT_THROW(StringView(text.end(), text.begin()), std::range_error);
+    EXPECT_THROW(sv_mid[-3], std::out_of_range);
 }
 
 TEST(StringViewTest, SizeMethod) {
