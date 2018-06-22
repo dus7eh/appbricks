@@ -25,7 +25,7 @@ TEST(OptionalTest, OptionalReadAndThrow)
 
     Optional<Dummy> empty{};
     EXPECT_THROW(*empty, bricks::core::BadAccess);
-    EXPECT_EXIT(int value = empty->age, ::testing::ExitedWithCode(1), "");
+    EXPECT_DEATH(const int value = empty->age, "");
 }
 
 

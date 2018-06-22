@@ -8,6 +8,7 @@
 #pragma once
 #include <memory>
 #include <exception>
+#include "helpers.h"
 
 namespace bricks
 {
@@ -25,11 +26,11 @@ namespace bricks
         {
         public:
             Optional() noexcept = default;
-            Optional(T&& arg) : data_{ std::make_unique<T>(std::forward<T>(arg)) } { }
+            Optional(T&& arg) : data_{ make_unique<T>(std::forward<T>(arg)) } { }
             Optional(Optional<T>&& rhs) noexcept : data_{ std::move(rhs.data_) } { }
             Optional(const Optional<T>& rhs) {
                 if (rhs)
-                    data_ = std::make_unique<T>(*rhs);
+                    data_ = make_unique<T>(*rhs);
             }
 
             ~Optional() = default;

@@ -11,6 +11,7 @@
 #include <typeinfo>
 #include <memory>
 #include <type_traits>
+#include "helpers.h"
 
 namespace bricks
 {
@@ -64,8 +65,8 @@ namespace bricks
                 // TODO: implement
             }
 
-            template <typename T, typename = std::enable_if_t<!std::is_same<typename std::decay<T>::type, Variant>::value>>
-            Variant(T&& data) : item_{ std::make_unique<Entity<T>>(std::forward<T>(data)) } { }
+            template <typename T, typename = enable_if_t<!std::is_same<typename std::decay<T>::type, Variant>::value>>
+            Variant(T&& data) : item_{ make_unique<Entity<T>>(std::forward<T>(data)) } { }
 
             Variant &operator=(Variant s)
             {
