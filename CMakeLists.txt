@@ -6,7 +6,7 @@ add_library(appbricks INTERFACE)
 
 # compiler settings
 if (DEV_MODE)
-    set(CMAKE_CXX_STANDARD 14)
+    set(CMAKE_CXX_STANDARD 11)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_FLAG "${CMAKE_CXX_FLAG} -Wall -Wpedantic -Wextra")
 endif()
