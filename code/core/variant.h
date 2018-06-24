@@ -13,10 +13,8 @@
 #include <type_traits>
 #include "helpers.h"
 
-namespace bricks
-{
-    namespace core
-    {
+namespace bricks {
+    namespace core {
         class Variant
         {
             using id = size_t;
@@ -36,16 +34,13 @@ namespace bricks
                 Entity(T&& data) : data_{ std::forward<T>(data) } { }
                 Entity(const Entity& data) = delete;
 
-                bool is(size_t id) const override
-                {
+                bool is(size_t id) const override {
                     return typeid(T).hash_code() == id;
                 }
-                const T& get() const
-                {
+                const T& get() const {
                     return data_;
                 }
-                T& get()
-                {
+                T& get() {
                     return data_;
                 }
 
@@ -56,41 +51,35 @@ namespace bricks
             std::unique_ptr<Base> item_ = nullptr;
 
         public:
-            Variant(Variant &&rhs)
-            {
+            Variant(Variant &&rhs) {
                 // TODO: implement
             }
-            Variant(const Variant &rhs)
-            {
+            Variant(const Variant &rhs) {
                 // TODO: implement
             }
 
             template <typename T, typename = enable_if_t<!std::is_same<typename std::decay<T>::type, Variant>::value>>
-            Variant(T&& data) : item_{ make_unique<Entity<T>>(std::forward<T>(data)) } { }
+            Variant(T&& data) : item_{ bricks::make_unique<Entity<T>>(std::forward<T>(data)) } { }
 
-            Variant &operator=(Variant s)
-            {
+            Variant &operator=(Variant s) {
                 // TODO: implement
                 return *this;
             }
 
             template <typename T>
-            bool is() const
-            {
+            bool is() const {
                 return item_->is(typeid(T).hash_code());
             }
 
             template <typename T>
-            T get() const
-            {
+            T get() const {
                 if (!is<T>())
                     throw std::bad_typeid();
                 return get_as<T>();
             }
 
             template <typename T>
-            T get_as() const
-            {
+            T get_as() const {
                 auto ptr = static_cast<Entity<T>*>(item_.get());
                 return ptr->get();
             }

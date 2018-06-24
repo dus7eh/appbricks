@@ -18,19 +18,17 @@
 #endif
 
 namespace bricks
-{
-    namespace core
-    {
-        template <bool cond, typename T = void>
-        #ifndef B_CXX14
-        using enable_if_t = typename std::enable_if<cond, T>::type;
-        #else
-        using enable_if_t = typename std::enable_if_t<cond, T>;
-        #endif
-        
-        template <typename T, typename ... Args>
-        std::unique_ptr<T> make_unique(Args&& ...args) {
-            return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-        }
+{ 
+    template <bool cond, typename T = void>
+    using enable_if_t = 
+    #ifndef B_CXX14
+        typename std::enable_if<cond, T>::type;
+    #else
+        typename std::enable_if_t<cond, T>;
+    #endif
+    
+    template <typename T, typename ... Args>
+    std::unique_ptr<T> make_unique(Args&& ...args) {
+        return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
     }
 }
