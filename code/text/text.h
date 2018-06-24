@@ -79,7 +79,7 @@ namespace bricks
                 std::reverse(text.begin(), text.end());
                 return text;
             }
-            auto split(std::string delimeter = "")
+            StringArray split(std::string delimeter = "")
             {
                 return text::split(text_, delimeter);
             }

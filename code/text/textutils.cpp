@@ -53,7 +53,7 @@ namespace bricks
         std::string remove_whitespaces(std::string text)
         {
             text.erase(
-                std::remove_if(text.begin(), text.end(), [](const auto& letter)
+                std::remove_if(text.begin(), text.end(), [](const char& letter)
             {
                 return std::isspace(letter);
             }),

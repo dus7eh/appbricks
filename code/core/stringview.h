@@ -61,7 +61,7 @@ namespace bricks {
             }
 
             SingleChar operator[] (int idx) const {
-                if (idx >= size_)
+                if (idx < 0 || size_t(idx) >= size_)
                     throw std::out_of_range("Index value exceeds view size");
                 return *std::next(start_, idx);
             }
