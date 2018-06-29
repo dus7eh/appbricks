@@ -1,5 +1,5 @@
 /*
- * variant.h
+ * blob.h
  *
  *  Created on: Jan 31, 2018
  *      Author: Damian Ellwart
@@ -74,7 +74,7 @@ namespace bricks {
             T get() const {
                 if (!is<T>())
                     throw std::bad_typeid();
-                return get_as<T>();
+                return static_cast<Entity<T>*>(item_.get())->get();
             }
 
             //template <typename T>
