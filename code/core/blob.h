@@ -82,7 +82,7 @@ namespace bricks {
             template <typename T>
             T get() const {
                 if (!item_)
-                    throw std::exception("This object is empty. Probably a value was moved from it.");
+                    throw std::logic_error("This object is empty. Probably a value was moved from it.");
                 if (!is<T>())
                     throw std::bad_typeid();
                 return static_cast<Entity<T>*>(item_.get())->get();

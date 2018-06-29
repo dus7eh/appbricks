@@ -58,7 +58,7 @@ TEST(BlobTest, BlobConstructors)
     EXPECT_EQ(var2.get<double>(), 5.5);
 
     auto var3 = std::move(var1);
-    EXPECT_THROW(var1.get<double>(), std::exception);
+    EXPECT_THROW(var1.get<double>(), std::logic_error);
     EXPECT_EQ(var1.empty(), true);
     EXPECT_EQ(var3.get<double>(), 5.5);
 }
@@ -67,7 +67,7 @@ TEST(BlobTest, BlobEmpty)
 {
     auto var1 = Blob();
     EXPECT_EQ(var1.empty(), true);
-    EXPECT_THROW(var1.get<int>(), std::exception);
+    EXPECT_THROW(var1.get<int>(), std::logic_error);
 }
 
 TEST(BlobTest, BlobSwap)
