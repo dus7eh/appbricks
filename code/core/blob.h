@@ -32,7 +32,7 @@ namespace bricks {
                 Entity(T&& data) : data_{ std::forward<T>(data) } { }
                 Entity(const Entity& data) = delete;
 
-                typedef typename std::decay<T>::type type;
+                using type = typename std::decay<T>::type;
 
                 bool is(id id) const override {
                     return typeid(T).hash_code() == id;
@@ -44,11 +44,11 @@ namespace bricks {
                     return data_;
                 }
                 std::unique_ptr<Base> clone() const {
-                    return bricks::make_unique<Entity<typename type>>(std::move(typename type(data_)));
+                    return bricks::make_unique<Entity<type>>(std::move(type(data_)));
                 }
 
             private:
-                typename type data_;
+                type data_;
             };
 
             std::unique_ptr<Base> item_ = nullptr;
