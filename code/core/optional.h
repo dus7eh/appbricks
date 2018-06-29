@@ -35,7 +35,7 @@ namespace bricks
 
             ~Optional() = default;
 
-            friend void swap(Optional<T>& lhs, Optional<T>& rhs) {
+            friend void swap(Optional<T>& lhs, Optional<T>& rhs) noexcept {
                 std::swap(lhs.data_, rhs.data_);
             }
 
