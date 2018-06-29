@@ -21,6 +21,7 @@ namespace bricks {
             class Base {
             public:
                 virtual bool is(id) const = 0;
+                virtual std::unique_ptr<Base> clone() const = 0;
                 virtual ~Base() = default;
             private:
             };
@@ -31,7 +32,9 @@ namespace bricks {
                 Entity(T&& data) : data_{ std::forward<T>(data) } { }
                 Entity(const Entity& data) = delete;
 
-                bool is(size_t id) const override {
+                typedef typename std::decay<T>::type type;
+
+                bool is(id id) const override {
                     return typeid(T).hash_code() == id;
                 }
                 const T& get() const {
@@ -40,18 +43,20 @@ namespace bricks {
                 T& get() {
                     return data_;
                 }
+                std::unique_ptr<Base> clone() const {
+                    return bricks::make_unique<Entity<typename type>>(std::move(typename type(data_)));
+                }
 
             private:
-                typename std::decay<T>::type data_;
+                typename type data_;
             };
 
             std::unique_ptr<Base> item_ = nullptr;
 
         public:
+            Blob() = default;
             Blob(Blob &&rhs) : item_{ std::move(rhs.item_) } { }
-            /*Blob(const Blob &rhs) {
-                // TODO: implement
-            }*/
+            Blob(const Blob &rhs) : item_ { rhs.item_->clone()} { }
 
             template <typename T, typename = enable_if_t<!std::is_same<typename std::decay<T>::type, Blob>::value>>
             Blob(T&& data) : item_{ bricks::make_unique<Entity<T>>(std::forward<T>(data)) } { }
@@ -70,19 +75,18 @@ namespace bricks {
                 return item_->is(typeid(T).hash_code());
             }
 
+            bool empty() const noexcept {
+                return !item_;
+            }
+
             template <typename T>
             T get() const {
+                if (!item_)
+                    throw std::exception("This object is empty. Probably a value was moved from it.");
                 if (!is<T>())
                     throw std::bad_typeid();
                 return static_cast<Entity<T>*>(item_.get())->get();
             }
-
-            //template <typename T>
-            //T get_as() const {
-            //    // no checks done here
-            //    const auto ptr = static_cast<Entity<T>*>(item_.get());
-            //    return T(ptr->get());
-            //}
         };
 
     }

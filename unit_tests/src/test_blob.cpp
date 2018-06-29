@@ -49,14 +49,44 @@ TEST(BlobTest, BlobGetUnconvertibleType)
     EXPECT_THROW(value.get<int>(), std::bad_typeid);
 }
 
-TEST(BlobTest, BlobTypeConversionExplicit)
+TEST(BlobTest, BlobConstructors)
 {
-    Blob var1 = -15;
+    auto var1 = Blob(5.5);
+    auto var2 = var1;
 
-    // TODO: implement when conversion is available
-    /*EXPECT_EQ(var1.get_as<long long>(), -15ll);
-    EXPECT_EQ(var1.get_as<bool>(), true);
-    EXPECT_EQ(var1.get_as<double>(), static_cast<double>(-15.0));
-    EXPECT_EQ(var1.get_as<uint32_t>(), uint32_t(-15));
-    EXPECT_EQ(var1.get_as<std::string>(), "-15");*/
+    EXPECT_EQ(var1.get<double>(), 5.5);
+    EXPECT_EQ(var2.get<double>(), 5.5);
+
+    auto var3 = std::move(var1);
+    EXPECT_THROW(var1.get<double>(), std::exception);
+    EXPECT_EQ(var1.empty(), true);
+    EXPECT_EQ(var3.get<double>(), 5.5);
+}
+
+TEST(BlobTest, BlobEmpty)
+{
+    auto var1 = Blob();
+    EXPECT_EQ(var1.empty(), true);
+    EXPECT_THROW(var1.get<int>(), std::exception);
+}
+
+TEST(BlobTest, BlobSwap)
+{
+    auto var1 = Blob(12);
+    auto var2 = Blob(3.3);
+
+    swap(var1, var2);
+    EXPECT_EQ(var1.get<double>(), 3.3);
+    EXPECT_EQ(var2.get<int>(), 12);
+}
+
+TEST(BlobTest, BlobAssign)
+{
+    auto var1 = Blob();
+    auto var2 = Blob(13);
+
+    var1 = var2;
+    var2 = 15;
+    EXPECT_EQ(var1.get<int>(), 13);
+    EXPECT_EQ(var2.get<int>(), 15);
 }
