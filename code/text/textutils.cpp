@@ -69,7 +69,6 @@ namespace bricks
 
         std::string replace(std::string text, std::string oldSeq, std::string newSeq)
         {
-            text.replace("abc", "def");
             // TODO: implement
             return {};
         }
