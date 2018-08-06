@@ -24,29 +24,33 @@ namespace bricks
             std::transform(text.begin(), text.end(), text.begin(), ::tolower);
             return text;
         }
-
-        std::string trim_left(std::string text, std::string chars)
-        {
-            // TODO: implement
-            return {};
-        }
-
-        std::string trim_right(std::string text, std::string chars)
-        {
-            // TODO: implement
-            return {};
-        }
-
+        
         std::string remove_prefix(std::string text, std::string prefix, int maxHits)
         {
-            // TODO: implement
-            return {};
+            if (maxHits < 0)
+                return text.substr(text.find_first_not_of(prefix));
+            
+            while (maxHits > 0 &&
+                   text.size() >= prefix.size() &&
+                   std::equal(prefix.begin(), prefix.end(), text.begin())) {
+                --maxHits;
+                text = text.erase(0, prefix.size());
+            }
+            return text;
         }
 
         std::string remove_suffix(std::string text, std::string suffix, int maxHits)
         {
-            // TODO: implement
-            return {};
+            if (maxHits < 0)
+                return text.substr(0, text.find_last_not_of(suffix) + 1);
+
+            while (maxHits > 0 &&
+                   text.size() >= suffix.size() &&
+                   std::equal(suffix.rbegin(), suffix.rend(), text.rbegin())) {
+                --maxHits;
+                text.erase((text.rbegin() + suffix.size()).base(), text.rbegin().base());
+            }
+            return text;
         }
 
 
@@ -65,6 +69,7 @@ namespace bricks
 
         std::string replace(std::string text, std::string oldSeq, std::string newSeq)
         {
+            text.replace("abc", "def");
             // TODO: implement
             return {};
         }

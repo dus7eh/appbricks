@@ -12,13 +12,19 @@
 #include <string>
 #include <algorithm>
 #include "textutils.h"
+#include "helpers.h"
 
-namespace bricks
-{
-    namespace text
-    {
-        class Text
-        {
+namespace bricks {
+    namespace text {
+        namespace detail_ {
+            template <typename T, typename = void_t<>>
+            struct to_string_spec_exists : std::false_type {};
+
+            template <typename T>
+            struct to_string_spec_exists<T, void_t<decltype(std::to_string(std::declval<T>()))>> : std::true_type {};
+        }
+
+        class Text {
         public:
             Text() = default;
             Text(Text&& text) = default;
@@ -47,11 +53,16 @@ namespace bricks
                 return text_;
             }
 
-            // TODO: create from a type, tag dispatch for integral and floating
             template <typename T>
-            static Text from(T&& value)
+            static typename enable_if_t<std::is_integral<T>::value, Text> from(T&& value)
             {
-                return {};
+                return std::to_string(std::forward<T>(value));
+            }
+
+            template <typename T>
+            static typename enable_if_t<std::is_floating_point<T>::value, Text> from(T&& value)
+            {
+                return trim_right(std::to_string(value), '0');
             }
 
             // convert to a type, tag dispatch for integral and floating
@@ -73,12 +84,24 @@ namespace bricks
             {
                 return text::remove_whitespaces(text_);
             }
+
+            Text remove_prefix(std::string prefix, int maxHits = -1)
+            {
+                return text::remove_prefix(text_, prefix, maxHits);
+            }
+
+            Text remove_suffix(std::string suffix, int maxHits = -1)
+            {
+                return text::remove_suffix(text_, suffix, maxHits);
+            }
+
             Text reverse()
             {
                 auto text = text_;
                 std::reverse(text.begin(), text.end());
                 return text;
             }
+
             StringArray split(std::string delimeter = "")
             {
                 return text::split(text_, delimeter);

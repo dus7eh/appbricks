@@ -44,6 +44,18 @@ TEST(TextTest, TextAssignOperator)
     EXPECT_EQ(txt2.as_string(), shortMessage);
 }
 
+TEST(TextTest, TextCreateSpecialization)
+{
+    auto txtInt = Text::from(5);
+    EXPECT_EQ(txtInt.as_string(), "5");
+
+    auto txtDbl = Text::from(6.7);
+    EXPECT_EQ(txtDbl.as_string(), "6.7");
+
+    auto txtNeg = Text::from(-7);
+    EXPECT_EQ(txtNeg.as_string(), "-7");
+}
+
 TEST(TextTest, TextMethodRemoveWhitespace)
 {
     auto text = "a b c d e f";
@@ -52,6 +64,34 @@ TEST(TextTest, TextMethodRemoveWhitespace)
     auto txt2 = txt1.remove_whitespaces();
     EXPECT_EQ(txt1.as_string(), text);
     EXPECT_EQ(txt2.as_string(), "abcdef");
+}
+
+TEST(TextTest, TextMethodRemovePrefix)
+{
+    auto text = "abcabcTEST";
+
+    Text txt = text;
+    EXPECT_EQ(txt.remove_prefix("a").as_string(), "bcabcTEST");
+    EXPECT_EQ(txt.remove_prefix("abc").as_string(), "TEST");
+    EXPECT_EQ(txt.remove_prefix("abc", 1).as_string(), "abcTEST");
+    EXPECT_EQ(txt.remove_prefix("abc", 10).as_string(), "TEST");
+
+    EXPECT_EQ(txt.remove_prefix("T").as_string(), text);
+    EXPECT_EQ(txt.remove_prefix("TEST", 10).as_string(), text);
+}
+
+TEST(TextTest, TextMethodRemoveSuffix)
+{
+    auto text = "TESTxyzxyz";
+
+    Text txt = text;
+    EXPECT_EQ(txt.remove_suffix("z").as_string(), "TESTxyzxy");
+    EXPECT_EQ(txt.remove_suffix("xyz").as_string(), "TEST");
+    EXPECT_EQ(txt.remove_suffix("xyz", 1).as_string(), "TESTxyz");
+    EXPECT_EQ(txt.remove_suffix("xyz", 10).as_string(), "TEST");
+    
+    EXPECT_EQ(txt.remove_suffix("T").as_string(), text);
+    EXPECT_EQ(txt.remove_suffix("TEST", 10).as_string(), text);
 }
 
 TEST(TextTest, TextMethodRevert)
