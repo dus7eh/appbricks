@@ -102,9 +102,14 @@ namespace bricks {
                 return text;
             }
 
-            StringArray split(std::string delimeter = "")
+            StringArray split(std::string delimeter = "") const
             {
                 return text::split(text_, delimeter);
+            }
+
+            static std::string join(const StringArray& text_arr, std::string delimeter = "")
+            {
+                return text::join(text_arr, delimeter);
             }
 
         private:

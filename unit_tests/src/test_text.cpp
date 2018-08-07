@@ -78,6 +78,9 @@ TEST(TextTest, TextMethodRemovePrefix)
 
     EXPECT_EQ(txt.remove_prefix("T").as_string(), text);
     EXPECT_EQ(txt.remove_prefix("TEST", 10).as_string(), text);
+
+    EXPECT_EQ(Text().remove_prefix("TEST").as_string(), "");
+    EXPECT_EQ(Text().remove_prefix("TEST", 10).as_string(), "");
 }
 
 TEST(TextTest, TextMethodRemoveSuffix)
@@ -92,6 +95,41 @@ TEST(TextTest, TextMethodRemoveSuffix)
     
     EXPECT_EQ(txt.remove_suffix("T").as_string(), text);
     EXPECT_EQ(txt.remove_suffix("TEST", 10).as_string(), text);
+    
+    EXPECT_EQ(Text().remove_suffix("TEST").as_string(), "");
+    EXPECT_EQ(Text().remove_suffix("TEST", 10).as_string(), "");
+}
+
+TEST(TextTest, TextMethodSplit)
+{
+    using bricks::text::StringArray;
+    const auto expected_simple = StringArray{ "a", "b", "c", "d" };
+    const auto expected_complex = StringArray{ "a", "b", "c", "d", "" };
+
+    const auto text_simple = Text("a;b;c;d");
+    const auto text_complex = Text("a=>b=>c=>d=>");
+
+    auto res = text_simple.split(";");
+    EXPECT_TRUE(expected_simple.size() == res.size() && std::equal(res.begin(), res.end(), expected_simple.begin()));
+
+    res = text_complex.split("=>");
+    EXPECT_TRUE(expected_complex.size() == res.size() && std::equal(res.begin(), res.end(), expected_complex.begin()));
+}
+
+TEST(TextTest, TextMethodJoin)
+{
+    using bricks::text::StringArray;
+    const auto expected_simple = "a;b;c;d";
+    const auto expected_complex = "a=>b=>c=>d=>";
+    
+    const auto data_simple = StringArray{ "a", "b", "c", "d" };
+    const auto data_complex = StringArray{ "a", "b", "c", "d", "" };
+
+    auto res = Text::join(data_simple, ";");
+    EXPECT_EQ(res, expected_simple);
+
+    res = Text::join(data_complex, "=>");
+    EXPECT_EQ(res, expected_complex);
 }
 
 TEST(TextTest, TextMethodRevert)
@@ -102,13 +140,4 @@ TEST(TextTest, TextMethodRevert)
     auto txt2 = txt1.reverse();
     EXPECT_EQ(txt1.as_string(), text);
     EXPECT_EQ(txt2.as_string(), "f e d c b a");
-}
-
-TEST(TextTest, TextMethodSplit)
-{
-    auto text = "a b c d e f ";
-
-    Text txt1 = text;
-    auto txt1_arr = txt1.split(" ");
-    auto txt2_arr = txt1.split();
 }
