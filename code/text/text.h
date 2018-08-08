@@ -54,13 +54,13 @@ namespace bricks {
             }
 
             template <typename T>
-            static typename enable_if_t<std::is_integral<T>::value, Text> from(T&& value)
+            static enable_if_t<std::is_integral<T>::value, Text> from(T&& value)
             {
                 return std::to_string(std::forward<T>(value));
             }
 
             template <typename T>
-            static typename enable_if_t<std::is_floating_point<T>::value, Text> from(T&& value)
+            static enable_if_t<std::is_floating_point<T>::value, Text> from(T&& value)
             {
                 return trim_right(std::to_string(value), '0');
             }
