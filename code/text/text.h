@@ -65,11 +65,18 @@ namespace bricks {
                 return trim_right(std::to_string(value), '0');
             }
 
-            // convert to a type, tag dispatch for integral and floating
             template <typename T>
-            std::string as() const
+            enable_if_t<std::is_integral<T>::value, T>
+                as() const
             {
-                return {};
+                return std::stoi(text_);
+            }
+
+            template <typename T>
+            enable_if_t<std::is_floating_point<T>::value, T>
+                as() const
+            {
+                return std::stod(text_);
             }
 
             // format a string filled with tokens

@@ -56,6 +56,13 @@ TEST(TextTest, TextCreateSpecialization)
     EXPECT_EQ(txtNeg.as_string(), "-7");
 }
 
+TEST(TextTest, TextConversion)
+{
+    EXPECT_EQ(Text("5").as<int>(), 5);
+    EXPECT_EQ(Text("2.4").as<double>(), 2.4);
+    EXPECT_EQ(Text("-7").as<int>(), -7);
+}
+
 TEST(TextTest, TextMethodRemoveWhitespace)
 {
     auto text = "a b c d e f";
