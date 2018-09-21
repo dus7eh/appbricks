@@ -49,8 +49,11 @@ TEST(TextTest, TextCreateSpecialization)
     auto txtInt = Text::from(5);
     EXPECT_EQ(txtInt.as_string(), "5");
 
-    auto txtDbl = Text::from(6.7);
+    auto txtDbl = Text::from(6.7, 1);
     EXPECT_EQ(txtDbl.as_string(), "6.7");
+
+    auto txtDblPrec = Text::from(6.7, 8);
+    EXPECT_EQ(txtDblPrec.as_string(), "6.70000000");
 
     auto txtNeg = Text::from(-7);
     EXPECT_EQ(txtNeg.as_string(), "-7");
@@ -141,10 +144,26 @@ TEST(TextTest, TextMethodJoin)
 
 TEST(TextTest, TextMethodRevert)
 {
-    auto text = "a b c d e f";
+    const auto text = "a b c d e f";
+    const auto rev = std::string{ "f e d c b a" };
 
     Text txt1 = text;
     auto txt2 = txt1.reverse();
-    EXPECT_EQ(txt1.as_string(), text);
-    EXPECT_EQ(txt2.as_string(), "f e d c b a");
+    EXPECT_EQ(txt1.as_string(), rev);
+    EXPECT_EQ(txt2.as_string(), rev);
+}
+
+TEST(TextTest, TextTokenPlainText)
+{
+    auto txt = Text("x: {3}, y: {2}, z: {1}");
+    txt.token("2").token("3").token("4");
+
+    EXPECT_EQ(txt.as_string(), "x: 4, y: 3, z: 2");
+}
+
+TEST(TextTest, TextTokenConvert)
+{
+    auto txt = Text("x: {1}, y: {2}, z: {3}");
+    txt.token(2).token(3.0, 2).token(9.3, 1);
+    EXPECT_EQ(txt.as_string(), "x: 2, y: 3.00, z: 9.3");
 }

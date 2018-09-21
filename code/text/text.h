@@ -11,6 +11,8 @@
 #include <type_traits>
 #include <string>
 #include <algorithm>
+#include <iomanip>
+#include <type_traits>
 #include "textutils.h"
 #include "helpers.h"
 
@@ -44,7 +46,7 @@ namespace bricks {
                 return *this;
             }
 
-            std::string as_string() const
+            const std::string& as_string() const
             {
                 return text_;
             }
@@ -60,9 +62,17 @@ namespace bricks {
             }
 
             template <typename T>
-            static enable_if_t<std::is_floating_point<T>::value, Text> from(T&& value)
+            static enable_if_t<std::is_floating_point<T>::value, Text> from(T&& value, int precision = 2)
             {
-                return trim_right(std::to_string(value), '0');
+                std::stringstream stream;
+                stream << std::fixed << std::setprecision(precision) << value;
+                return stream.str();
+            }
+
+            template <typename T>
+            static enable_if_t<std::is_constructible<std::string, T>::value, Text> from(T&& value)
+            {
+                return std::string{ std::forward<T>(value) };
             }
 
             template <typename T>
@@ -79,12 +89,37 @@ namespace bricks {
                 return std::stod(text_);
             }
 
+
             // format a string filled with tokens
             template <typename T>
-            Text& format(T&& value)
+            Text& token(T&& value)
             {
-                return {};
+                return token_(Text::from(std::forward<T>(value)));
             }
+
+            template <typename T, typename = enable_if_t<std::is_floating_point<T>::value>>
+            Text& token(T&& value, int precision)
+            {
+                return token_(Text::from(std::forward<T>(value), precision));
+            }
+
+        private:
+            Text& token_(Text&& data)
+            {
+                const int max_tokens = 20;
+                for (auto i = 0; i < max_tokens; ++i)
+                {
+                    const auto token = "{" + std::to_string(i) + "}";
+                    const auto pos = text_.find(token);
+                    if (pos != std::string::npos)
+                    {
+                        text_.replace(pos, token.size(), data.as_string());
+                        break;
+                    }
+                }
+                return *this;
+            }
+        public:
 
             // Member functions delegated to textutils function calls.
             Text remove_whitespaces()
@@ -102,11 +137,10 @@ namespace bricks {
                 return text::remove_suffix(text_, suffix, maxHits);
             }
 
-            Text reverse()
+            Text& reverse()
             {
-                auto text = text_;
-                std::reverse(text.begin(), text.end());
-                return text;
+                std::reverse(text_.begin(), text_.end());
+                return *this;
             }
 
             StringArray split(std::string delimeter = "") const
