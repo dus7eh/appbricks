@@ -28,7 +28,6 @@ TEST(OptionalTest, OptionalReadAndThrow)
     EXPECT_DEATH(const int value = empty->age, "");
 }
 
-
 TEST(OptionalTest, OptionalReadOrDefault)
 {
     Optional<int> empty;
